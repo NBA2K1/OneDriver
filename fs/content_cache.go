@@ -99,10 +99,9 @@ func (l *LoopbackCache) Open(id string) (*os.File, error) {
 
 // Close closes the currently open fd
 func (l *LoopbackCache) Close(id string) {
-	if fd, ok := l.fds.Load(id); ok {
+	if fd, ok := l.fds.LoadAndDelete(id); ok {
 		file := fd.(*os.File)
 		file.Sync()
 		file.Close()
-		l.fds.Delete(id)
 	}
 }
