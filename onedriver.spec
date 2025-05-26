@@ -1,7 +1,7 @@
 Name:          onedriver
-Version:       0.14.1
+Version:       0.14.2
 Release:       1%{?dist}
-Summary:       A native Linux filesystem for Microsoft Onedrive
+Summary:       A native Linux filesystem for Microsoft OneDrive
 
 License:       GPL-3.0-or-later
 URL:           https://github.com/jstaf/onedriver
@@ -19,7 +19,7 @@ BuildRequires: webkit2gtk3-devel
 Requires: fuse3
 
 %description
-Onedriver is a native Linux filesystem for Microsoft Onedrive. Files and
+OneDriver is a native Linux filesystem for Microsoft OneDrive. Files and
 metadata are downloaded on-demand instead of syncing the entire drive to
 your local computer.
 
@@ -71,6 +71,16 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 %attr(644, root, root) /usr/share/man/man1/%{name}.1.gz
 
 %changelog
+* Mon May 26 2025 NBA2K1 <78034913+NBA2K1@users.noreply.github.com> - 0.14.2
+- Create config directory if not exists #365
+- Switch to using fuse3 instead of fuse2 #379
+- Add drive rename option #394
+- Minor UI improvements #402
+- Use near-real-time change notifications for fetching delta #403
+- Lock opened file inodes to prevent a use after free race condition #415
+- Update mergo module #418
+- Add a Docker container as an option to run the program #420
+
 * Wed Oct 18 2023 Jeff Stafford <jeff.stafford@protonmail.com> - 0.14.1
 - Fixes a bug with file corruption in some scenarios from version 0.14.0.
 
@@ -81,7 +91,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - onedriver no longer allows you to create filenames that are not allowed by OneDrive.
 
 * Tue Nov 1 2022 Jeff Stafford <jeff.stafford@protonmail.com> - 0.13.0
-- The GUI has been rewritten in golang for ease of maintenance and code sharing with 
+- The GUI has been rewritten in golang for ease of maintenance and code sharing with
   the rest of the onedriver application.
 - onedriver can now be configured with a config file at "~/.config/onedriver/config.yml".
 - There is now a configuration menu in the GUI. You can now set a couple configuration
@@ -89,7 +99,7 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - The onedriver CLI now stores its cache in the same path that the GUI expects,
   meaning that invoking the onedriver filesystem directly and via the GUI will share the
   cache as long as the mountpoint is the same.
-- onedriver now prefers multipart downloads for files >10MB instead of a single massive 
+- onedriver now prefers multipart downloads for files >10MB instead of a single massive
   GET request. This should significantly improve reliability when working with large files.
 
 * Tue Nov 2 2021 Jeff Stafford <jeff.stafford@protonmail.com> - 0.12.0
@@ -99,11 +109,11 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
   upload files on success. This significantly improves upload speed.
 - Fixes a crash when writes begin at an offset beyond maximum file length. This fixes a
   bug where running ld inside the filesystem would cause it to crash.
-- Switch to using zerolog instead of logrus for logging. Though zerolog is supposedly 
+- Switch to using zerolog instead of logrus for logging. Though zerolog is supposedly
   faster, the real reason to switch is that it's much easier for me (and hopefully you)
   to read! Also, pretty colors!
-- onedriver now gives you the option to choose to authenticate via the terminal when 
-  authenticating via the new --no-browser option (this is the functionality from the 
+- onedriver now gives you the option to choose to authenticate via the terminal when
+  authenticating via the new --no-browser option (this is the functionality from the
   old "headless" build).
 - Add a workaround for the TLS cert authentication issue from
   https://bugzilla.redhat.com/show_bug.cgi?id=2024296
@@ -118,8 +128,8 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 * Sat Jul 3 2021 Jeff Stafford <jeff.stafford@protonmail.com> - 0.11.0
 - Now includes a snazzy GUI for managing your mountpoints. No terminal skills are required
   to use onedriver now.
-- The upload logic has been rewritten to no longer use 0-byte files as placeholders in 
-  any scenario. This fixes a race condition where software like LibreOffice, KeepassXC, or 
+- The upload logic has been rewritten to no longer use 0-byte files as placeholders in
+  any scenario. This fixes a race condition where software like LibreOffice, KeepassXC, or
   Krita could generate a 0-byte file instead of the intended file when the file was 4MB or
   larger.
 - onedriver now uses etags AND modification times when syncing server-side changes back to
@@ -135,9 +145,9 @@ cp pkg/resources/%{name}.1.gz %{buildroot}/usr/share/man/man1
 - The onedriver systemd service now restarts itself in the event of a crash -
   thanks dipunm!
 - Fix a rare crash while syncing server-side changes missing checksums.
-- Fix a race-condition that caused uploaded files to occasionally be replaced by a 0-byte 
+- Fix a race-condition that caused uploaded files to occasionally be replaced by a 0-byte
   copy (most commonly caused by the way LibreOffice saves files).
-- Cap number of uploads that can be in-progress at any time to 5. This makes uploading 
+- Cap number of uploads that can be in-progress at any time to 5. This makes uploading
   uploading directories with lots of files appear to go a bit faster.
 - The account name is now displayed in the title bar if you need to reauthenticate to
   OneDrive (makes it easier to know which credentials to use when prompted).

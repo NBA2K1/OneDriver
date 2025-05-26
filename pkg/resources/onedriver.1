@@ -1,6 +1,6 @@
-.\" Manpage for onedriver
+.\" Manpage for OneDriver
 
-.TH man 1 "Nov 2021" "0.14.1" "onedriver man page"
+.TH man 1 "May 2025" "0.14.2" "onedriver man page"
 
 .SH NAME
 onedriver \- A native Linux client for Microsoft OneDrive.
@@ -26,17 +26,17 @@ Authenticate to OneDrive and then exit.
 
 .TP
 .BR \-f , " \-\-config-file"
-A YAML-formatted configuration file used by onedriver. Defaults to
+A YAML-formatted configuration file used by OneDriver. Defaults to
 "~/.config/onedriver/config.yml".
 
 .TP
 .BR \-c , " \-\-cache\-dir " \fIdir
-Change the default cache directory used by onedriver. Will be created if the
-path does not already exist. The \fIdir\fR argument specifies the location. 
+Change the default cache directory used by OneDriver. Will be created if the
+path does not already exist. The \fIdir\fR argument specifies the location.
 
 .TP
 .BR \-d , " \-\-debug"
-Enable FUSE debug logging. This logs communication between onedriver and the kernel.
+Enable FUSE debug logging. This logs communication between OneDriver and the kernel.
 
 .TP
 .BR \-h , " \-\-help"
@@ -44,7 +44,7 @@ Displays a help message.
 
 .TP
 .BR \-l , " \-\-log "\fIlevel
-Set logging level/verbosity. \fIlevel\fR can be one of: 
+Set logging level/verbosity. \fIlevel\fR can be one of:
 .BR fatal ", " error ", " warn ", " info ", " debug " or " trace " (default is " debug ")."
 
 .TP
@@ -58,13 +58,13 @@ Display program version.
 
 .TP
 .BR \-w , " \-\-wipe-cache"
-Delete the existing onedriver cache directory and then exit. Equivalent to
+Delete the existing OneDriver cache directory and then exit. Equivalent to
 resetting the program.
 
 
 .SH SYSTEM INTEGRATION
-To start onedriver automatically and ensure you always have access to your
-files, you can start onedriver as a systemd user service. In this example,
+To start OneDriver automatically and ensure you always have access to your
+files, you can start OneDriver as a systemd user service. In this example,
 \fImountpoint\fR refers to where we want OneDrive to be mounted at (for
 instance, ~/OneDrive). Mounting OneDrive via systemd allows multiple drives to
 be mounted at the same time (as long as they use different mountpoints).
@@ -74,7 +74,7 @@ be mounted at the same time (as long as they use different mountpoints).
 Create the mountpoint and determine the service name:
 .nf
 \fB
-mkdir -p \fImountpoint\fR  
+mkdir -p \fImountpoint\fR
 \fB
 export SERVICE_NAME=$(systemd-escape --template onedriver@.service --path \fImountpoint\fR)
 \fR
@@ -98,7 +98,7 @@ systemctl --user enable $SERVICE_NAME
 .fi
 
 .TP
-Check onedriver's logs:
+Check OneDriver's logs:
 .nf
 \fB
 journalctl --user -u $SERVICE_NAME
@@ -108,23 +108,23 @@ journalctl --user -u $SERVICE_NAME
 
 .SH TROUBLESHOOTING
 
-Most errors can be solved by simply restarting the program. onedriver is
+Most errors can be solved by simply restarting the program. OneDriver is
 designed to recover cleanly from errors with no extra effort.
 
-It's possible that there may be a deadlock or segfault that I haven't caught in 
-my tests. If this happens, the onedriver filesystem and subsequent ops may hang
-indefinitely (ops will hang while the kernel waits for the dead onedriver 
-process to respond). When this happens, you can cleanly unmount the filesystem 
+It's possible that there may be a deadlock or segfault that I haven't caught in
+my tests. If this happens, the OneDriver filesystem and subsequent ops may hang
+indefinitely (ops will hang while the kernel waits for the dead OneDriver
+process to respond). When this happens, you can cleanly unmount the filesystem
 with: \fBfusermount3 -uz $MOUNTPOINT\fR
 
 
-In the event that you want to reset onedriver completely (wipe all local state)
+In the event that you want to reset OneDriver completely (wipe all local state)
 you can do so via: \fBonedriver -w\fR
 
 
 .SH KNOWN ISSUES AND DISCLAIMER
 
-Many file browsers (like GNOME's Nautilus) will attempt to automatically 
+Many file browsers (like GNOME's Nautilus) will attempt to automatically
 download all files within a directory in order to create thumbnail images.
 This is somewhat annoying, but only needs to happen once - after the initial
 thumbnail images have been created, thumbnails will persist between
@@ -135,7 +135,7 @@ OneDrive. Attempting to create symbolic links within the filesystem returns
 ENOSYS (function not implemented) because the functionality hasn't been
 implemented... by Microsoft. Similarly, Microsoft does not expose the OneDrive
 Recycle Bin APIs - if you want to empty or restore the OneDrive Recycle Bin, you
-must do so through the OneDrive web UI (onedriver uses the native system
+must do so through the OneDrive web UI (OneDriver uses the native system
 trash/restore functionality independently of the OneDrive Recycle Bin).
 
 This project is still in active development and is provided AS IS. There are no
