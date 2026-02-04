@@ -214,7 +214,7 @@ make
 sudo make install
 
 # create an RPM for system-wide installation on RHEL/CentOS/Fedora using mock
-sudo dnf install golang gcc webkit2gtk3-devel json-glib-devel pkg-config git \
+sudo dnf install golang gcc webkit2gtk4.1-devel json-glib-devel pkg-config git \
     rsync rpmdevtools rpm-build mock
 sudo usermod -aG mock $USER
 newgrp mock
@@ -222,9 +222,9 @@ make rpm
 
 # create a .deb for system-wide installation on Ubuntu/Debian using pbuilder
 sudo apt update
-sudo apt install golang gcc libwebkit2gtk-4.0-dev libjson-glib-dev pkg-config git \
+sudo apt install golang gcc libwebkit2gtk-4.1-dev libjson-glib-dev pkg-config git \
     rsync devscripts debhelper build-essential pbuilder
-sudo pbuilder create  # may need to add "--distribution focal" on ubuntu
+sudo pbuilder create  # may need to add "--mirror http://archive.ubuntu.com/ubuntu --distribution noble" on ubuntu
 make deb
 ```
 

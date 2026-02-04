@@ -1,7 +1,7 @@
 Name:          onedriver
-Version:       0.15.0
+Version:       0.15.1
 Release:       4%{?dist}
-Summary:       A native Linux filesystem for Microsoft Onedrive
+Summary:       A native Linux filesystem for Microsoft OneDrive
 
 License:       GPL-3.0-or-later
 URL:           https://github.com/jstaf/onedriver
@@ -23,7 +23,7 @@ BuildRequires: webkit2gtk4.1-devel
 Requires: fuse3
 
 %description
-Onedriver is a native Linux filesystem for Microsoft Onedrive. Files and
+OneDriver is a native Linux filesystem for Microsoft OneDrive. Files and
 metadata are downloaded on-demand instead of syncing the entire drive to
 your local computer.
 
