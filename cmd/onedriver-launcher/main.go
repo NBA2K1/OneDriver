@@ -90,7 +90,7 @@ func activateCallback(app *gtk.Application, config *common.Config, configPath st
 
 	header, _ := gtk.HeaderBarNew()
 	header.SetShowCloseButton(true)
-	header.SetTitle("Onedriver")
+	header.SetTitle("OneDriver")
 	window.SetTitlebar(header)
 
 	err := window.SetIconFromFile("/usr/share/icons/onedriver/onedriver.svg")
@@ -161,7 +161,7 @@ func activateCallback(app *gtk.Application, config *common.Config, configPath st
 	about.SetLabel("About")
 	about.Connect("clicked", func(button *gtk.ModelButton) {
 		aboutDialog, _ := gtk.AboutDialogNew()
-		aboutDialog.SetProgramName("Onedriver Launcher")
+		aboutDialog.SetProgramName("OneDriver Launcher")
 		aboutDialog.SetAuthors([]string{"Jeff Stafford", "https://github.com/jstaf"})
 		aboutDialog.SetWebsite("https://github.com/jstaf/onedriver")
 		aboutDialog.SetWebsiteLabel("github.com/jstaf/onedriver")
